@@ -1,0 +1,84 @@
+{
+  "autoPin": true,
+  "pins": [
+    {
+      "package": "Alamofire",
+      "reason": null,
+      "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+      "version": "4.5.0"
+    },
+    {
+      "package": "CommonCrypto",
+      "reason": null,
+      "repositoryURL": "https://github.com/daltoniam/common-crypto-spm.git",
+      "version": "1.0.0"
+    },
+    {
+      "package": "ReactiveSwift",
+      "reason": null,
+      "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+      "version": "2.0.0-rc.1"
+    },
+    {
+      "package": "Result",
+      "reason": null,
+      "repositoryURL": "https://github.com/antitypical/Result.git",
+      "version": "3.2.3"
+    },
+    {
+      "package": "SKClient",
+      "reason": null,
+      "repositoryURL": "https://github.com/SlackKit/SKClient",
+      "version": "4.0.0"
+    },
+    {
+      "package": "SKCore",
+      "reason": null,
+      "repositoryURL": "https://github.com/SlackKit/SKCore",
+      "version": "4.0.0"
+    },
+    {
+      "package": "SKRTMAPI",
+      "reason": null,
+      "repositoryURL": "https://github.com/SlackKit/SKRTMAPI",
+      "version": "4.0.0"
+    },
+    {
+      "package": "SKServer",
+      "reason": null,
+      "repositoryURL": "https://github.com/SlackKit/SKServer",
+      "version": "4.0.0"
+    },
+    {
+      "package": "SKWebAPI",
+      "reason": null,
+      "repositoryURL": "https://github.com/SlackKit/SKWebAPI",
+      "version": "4.0.0"
+    },
+    {
+      "package": "SlackKit",
+      "reason": null,
+      "repositoryURL": "https://github.com/SlackKit/SlackKit.git",
+      "version": "4.0.0"
+    },
+    {
+      "package": "Starscream",
+      "reason": null,
+      "repositoryURL": "https://github.com/daltoniam/Starscream",
+      "version": "2.1.0"
+    },
+    {
+      "package": "Swifter",
+      "reason": null,
+      "repositoryURL": "https://github.com/httpswift/swifter.git",
+      "version": "1.3.3"
+    },
+    {
+      "package": "zlib",
+      "reason": null,
+      "repositoryURL": "https://github.com/daltoniam/zlib-spm.git",
+      "version": "1.0.0"
+    }
+  ],
+  "version": 1
+}
