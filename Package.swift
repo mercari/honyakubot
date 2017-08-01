@@ -7,6 +7,6 @@ let package = Package(
     dependencies: [
         .Package(url: "https://github.com/SlackKit/SlackKit.git", majorVersion: 4),
         .Package(url: "https://github.com/Alamofire/Alamofire.git", majorVersion: 4),
-        .Package(url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", "2.0.0-rc.1"),
+        .Package(url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", majorVersion: 2),
     ]
 )
