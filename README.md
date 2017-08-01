@@ -26,8 +26,6 @@ swift build && ./.build/debug/honyakubot
   ```
 
 ### TODO:
-* add listener for 'added_channel' and update full channel list
-* don't send username notification from bot in translated channel
 * don't translate events, e.g. user has joined channel
 * style original text differently
 * logs: add date

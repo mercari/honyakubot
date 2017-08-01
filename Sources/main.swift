@@ -27,6 +27,11 @@ final class HonyakuBot {
         guard let webAPI = bot.webAPI else { fatalError("missing SlackKit webAPI") }
         self.apiService = APIService(webAPI: webAPI)
 
+        bot.notificationForEvent(EventType.channelCreated) { [weak self] (event, client) in
+            guard let channel = event.channel else { return }
+            self?.apiService.channelWasCreated(channel)
+        }
+
         bot.notificationForEvent(.message) { [weak self] (event, client) in
             guard let strongSelf = self,
                 let message = event.message,
@@ -45,7 +50,6 @@ final class HonyakuBot {
         }
 
         // if not messaged bot in regular channel, forward translated message to -en channel
-        // TODO: translate channel ID to name
         let lastThreeCharRange = channel.index(channel.endIndex, offsetBy: -3)..<channel.endIndex
         if channel.substring(with: lastThreeCharRange) != "-en" {
             return .translateToEN(message: message)
@@ -87,15 +91,36 @@ final class HonyakuBot {
                         }
 
                         let username = value.1?.name ?? "user not found"
-                        let finalText = "\(username): \(translatedText)" + "\n\n original: \(message.text!)"
-                        self?.apiService.webAPI.sendMessage(channel: enChannelID, text: finalText, asUser: true, success: { ts, channel in
-                            print(ts ?? "")
-                            print(channel ?? "")
+                        let iconURL = value.1?.profile?.image72
+                        self?.apiService.webAPI.sendMessage(
+                            channel: enChannelID,
+                            text: translatedText,
+                            username: username,
+                            asUser: false,
+                            iconURL: iconURL,
+                            success: { ts, channel in
+                                print(ts ?? "")
+                                print(channel ?? "")
+
+                                self?.apiService.webAPI.sendThreadedMessage(
+                                    channel: enChannelID,
+                                    thread: ts ?? "",
+                                    text: text,
+                                    username: username,
+                                    asUser: false,
+                                    iconURL: iconURL,
+                                    success: { ts, channel in
+                                        print(ts ?? "")
+                                        print(channel ?? "")
+                                }, failure: { error in
+                                    print("send threaded message error: \(error)")
+                                })
+                                
                         }, failure: { error in
-                            print(error)
+                            print("send threaded message error: \(error)")
                         })
                     case .failure(let error):
-                        print(error)
+                        print("translate text error: \(error)")
                     }
                 })
         }

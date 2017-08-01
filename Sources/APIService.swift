@@ -49,12 +49,23 @@ final class APIService {
             guard
                 let channel = channel,
                 let name = channel.name else { return nil }
-                return allChannels
-                    .filter({ channel in
-                        return channel.name == "z-\(name)-en" }).first
+
+            // slack does not allow channel names 22 characters or above
+            let truncatedName: String
+            if name.characters.count > 16 {
+                truncatedName = name.substring(to: name.index(name.startIndex, offsetBy: 16))
+            } else {
+                truncatedName = name
+            }
+            return allChannels
+                .filter({ channel in
+                    return channel.name == "z-\(truncatedName)-en" }).first
         }
     }
 
+    func channelWasCreated(_ channel: Channel) {
+        _channels?.append(channel)
+    }
 
     // MARK: Users
     var allUsers: SignalProducer<[User], SlackError> {
