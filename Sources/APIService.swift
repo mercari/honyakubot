@@ -22,6 +22,21 @@ final class APIService {
         self.webAPI = webAPI
     }
 
+    // MARK: Messages
+    func sendTranslatedMessage(
+        channel: String,
+        translatedText: String,
+        originalText: String,
+        username: String? = nil,
+        iconURL: String? = nil
+        ) -> SignalProducer<(ts: String?, channel: String?), SlackError> {
+        return webAPI.sendMessage(channel: channel, text: translatedText, username: username, iconURL: iconURL)
+            .flatMap(.latest) { [weak webAPI] (ts: String?, _) -> SignalProducer<(ts: String?, channel: String?), SlackError> in
+                guard let webAPI = webAPI, let ts = ts else { return .empty }
+                return webAPI.sendThreadedMessage(channel: channel, thread: ts, text: originalText, username: username, iconURL: iconURL)
+        }
+    }
+
     // MARK: Channels
     var allChannels: SignalProducer<[Channel], SlackError> {
         if let channels = _channels {

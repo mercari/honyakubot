@@ -92,33 +92,16 @@ final class HonyakuBot {
 
                         let username = value.1?.name ?? "user not found"
                         let iconURL = value.1?.profile?.image72
-                        self?.apiService.webAPI.sendMessage(
-                            channel: enChannelID,
-                            text: translatedText,
-                            username: username,
-                            asUser: false,
-                            iconURL: iconURL,
-                            success: { ts, channel in
-                                print(ts ?? "")
-                                print(channel ?? "")
-
-                                self?.apiService.webAPI.sendThreadedMessage(
-                                    channel: enChannelID,
-                                    thread: ts ?? "",
-                                    text: text,
-                                    username: username,
-                                    asUser: false,
-                                    iconURL: iconURL,
-                                    success: { ts, channel in
-                                        print(ts ?? "")
-                                        print(channel ?? "")
-                                }, failure: { error in
-                                    print("send threaded message error: \(error)")
-                                })
-                                
-                        }, failure: { error in
-                            print("send threaded message error: \(error)")
-                        })
+                        self?.apiService.sendTranslatedMessage(channel: enChannelID, translatedText: translatedText, originalText: text, username: username, iconURL: iconURL)
+                            .startWithResult { result in
+                                switch result {
+                                case .success(let ts, let channel):
+                                    print(ts ?? "missing ts")
+                                    print(channel ?? "missing channel")
+                                case .failure(let error):
+                                    print("send translated message error: \(error)")
+                                }
+                            }
                     case .failure(let error):
                         print("translate text error: \(error)")
                     }
