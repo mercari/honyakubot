@@ -14,7 +14,7 @@ import SKCore
 import Result
 
 final class APIService {
-    let webAPI: WebAPI // TODO: make private and wrap functions
+    private let webAPI: WebAPI
     private var _channels: [Channel]? = nil
     private var _users: [User]? = nil
 

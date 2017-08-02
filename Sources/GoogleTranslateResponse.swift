@@ -19,7 +19,7 @@ struct GoogleTranslateResponse {
                 self.detectedSourceLanguage = nil
                 return
             }
-            self.translatedText = translatedText
+            self.translatedText = translatedText.convertHtmlSymbols() ?? ""
             self.detectedSourceLanguage = dict["detectedSourceLanguage"] as? String
         }
     }
